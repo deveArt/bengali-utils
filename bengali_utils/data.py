@@ -5,11 +5,12 @@ import cv2
 import torch
 from torch.utils.data import Dataset
 
+IMG_H, IMG_W = 137, 236
+
 
 def prepare_data(img_path,
                  label_cls,
                  data_dir,
-                 img_h, img_w,
                  label_df=None,
                  debug=False,
                  dbg_max_count=300):
@@ -19,7 +20,7 @@ def prepare_data(img_path,
 
     for i_path in img_path:
         parq = pd.read_parquet(os.path.join(data_dir, i_path))
-        parq_list.append(parq.iloc[:, 1:].values.astype(np.uint8).reshape(-1, img_h, img_w))
+        parq_list.append(parq.iloc[:, 1:].values.astype(np.uint8).reshape(-1, IMG_H, IMG_W))
 
         if debug: break
 
