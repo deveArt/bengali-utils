@@ -104,7 +104,7 @@ class BengaliData(Dataset):
     Bengali graphics data
     """
 
-    def __init__(self, images, out_img_size, labels=None, transform=None):
+    def __init__(self, images, labels=None, out_img_size=128, transform=None):
 
         assert isinstance(images, np.ndarray)
 
