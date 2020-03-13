@@ -3,9 +3,17 @@ from abc import ABCMeta, abstractmethod
 import torch
 import os
 from tqdm.notebook import trange, tqdm
+from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
 
 MODEL_DIR = "./checkpoint/"
 MODEL_FILE = MODEL_DIR + "model_weights{epoch}.pth"
+
+
+def stratified_splits(X: np.ndarray, Y: np.ndarray, val_rate: float, shuffle=True, rand_seed=None):
+    mskf = MultilabelStratifiedKFold(n_splits=int(np.ceil(1/val_rate)), shuffle=shuffle, random_state=rand_seed)
+
+    for train_index, val_index in mskf.split(X, Y):
+        yield X[train_index], X[val_index], Y[train_index], Y[val_index]
 
 
 def get_avail_device():
