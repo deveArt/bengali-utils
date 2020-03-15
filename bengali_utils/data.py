@@ -6,10 +6,10 @@ import torch
 from torch.utils.data import Dataset
 
 IMG_H, IMG_W = 137, 236
+LABEL_CLS = ['grapheme_root', 'vowel_diacritic', 'consonant_diacritic']
 
 
 def prepare_data(img_path,
-                 label_cls,
                  data_dir,
                  label_df=None,
                  debug=False,
@@ -28,7 +28,7 @@ def prepare_data(img_path,
     if debug:
         images = images[:dbg_max_count]
 
-    labels = label_df if label_df is None else label_df[label_cls].values[:images.shape[0]]
+    labels = label_df if label_df is None else label_df[LABEL_CLS].values[:images.shape[0]]
 
     return images, labels
 
